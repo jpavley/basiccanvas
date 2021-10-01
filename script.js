@@ -12,25 +12,25 @@ window.addEventListener('load', function() {
             this.width = width;
             this.height = height;
 
+            // sprite management
             this.sprites = [];
-
-            this.interval = 1000;
-            this.timer = 0;
+            this.spriteAddInterval = 1000; // add/remove a sprite every 1000ms
+            this.spriteAddTimer = 0;
         }
 
         update(deltaTime) {
-            if (this.timer > this.interval) {
+            if (this.spriteAddTimer > this.spriteAddInterval) {
 
-                // remove and add sprites
+                // remove and add sprites every 1000ms
                 this.sprites = this.sprites.filter(s => !s.deleteMe);
                 this.#createSprite();
                 console.log(this.sprites);
-                this.timer = 0;
+                this.spriteAddTimer = 0;
             } else {
-                this.timer += deltaTime;
+                this.spriteAddTimer += deltaTime; // ensure timing is the same for slow and fast machines
             }
 
-            // update sprites
+            // update sprites every frame
             this.sprites.forEach(s => s.update(deltaTime));
         }
 
@@ -77,7 +77,7 @@ window.addEventListener('load', function() {
         }
 
         update(deltaTime) {
-            // animate frame
+            // animate frame every 300ms
             if (this.frameTimer > this.frameInterval) {
                 if (this.frameX < this.frameCount) {
                     // advance animation frame
@@ -89,16 +89,16 @@ window.addEventListener('load', function() {
                 // reset frame timer
                 this.frameTimer = 0;
             } else {
-                this.frameTimer += deltaTime;
+                this.frameTimer += deltaTime; // ensure timing is the same for slow and fast machines
             }
 
-            // remove sprite when out of bounds
+            // mark sprite for removal when out of bounds
             if (this.y < 0 - this.height * 2) {
                 // remove from game
                 this.deleteMe = true;
             }
 
-            // move sprite
+            // move sprite every frame
             if (this.y < 0 - this.height * 2) {
                 // remove from game
                 this.markedForDeletion = true;
