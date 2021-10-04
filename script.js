@@ -23,7 +23,7 @@ window.addEventListener('load', function() {
 
                 // remove and add sprites every 1000ms
                 this.sprites = this.sprites.filter(s => !s.deleteMe);
-                this.#createSprite();
+                this.createSprite();
                 console.log(this.sprites);
                 this.spriteAddTimer = 0;
             } else {
@@ -45,7 +45,7 @@ window.addEventListener('load', function() {
             this.sprites.forEach(s => s.draw(this.ctx));
         }
 
-        #createSprite() {
+        createSprite() {
             this.sprites.push(new Sprite(this));
             this.sprites.sort(function(a, b) {
                 // higher sprites will be drawn before lower sprites
